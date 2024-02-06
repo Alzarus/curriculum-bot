@@ -1,0 +1,25 @@
+{
+  "name": "curriculum-bot",
+  "version": "1.0.0",
+  "description": "Bot de automacao para a criacao de curriculos",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "debug": "set DEBUG=puppeteer:* && node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alzarus/curriculum-bot.git"
+  },
+  "author": "https://github.com/Alzarus/",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Alzarus/curriculum-bot/issues"
+  },
+  "homepage": "https://github.com/Alzarus/curriculum-bot#readme",
+  "dependencies": {
+    "puppeteer": "^21.0.3"
+  }
+}
