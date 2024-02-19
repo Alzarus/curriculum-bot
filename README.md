@@ -1,6 +1,6 @@
 # curriculum-bot
 - Bot de automação para a criação de currículos. 
-- Créditos à plataforma https://www.todacarreira.com/gerador-de-curriculo/ para a geração do currículo e disponibilização do download.
+- Créditos à plataforma https://www.todacarreira.com/gerador-de-curriculo/ pela geração do currículo e disponibilização do download.
 
 ## Instalação
 - [INSTALAR] - npm i
