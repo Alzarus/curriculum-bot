@@ -1,119 +1,66 @@
 import { promises } from "fs";
 import puppeteer from "puppeteer";
 
+// INSIRA SUAS INFORMACOES A SEREM USADAS EDITANDO AS CONSTANTES AQUI ABAIXO
+const NOME_COMPLETO = "Fulano Siclano da Silva";
+const EMAIL = "fulano@gmail.com";
+const NACIONALIDADE = "Brasileira";
+const IDADE = "33";
+const GENERO = "Masculino";
+const ESTADO_CIVIL = "Solteiro";
+const TELEFONE = "(71)1234-5678";
+const CELULAR = "(71)12345-6789";
+const ENDERECO = "Rua das automacoes, 25";
+const CIDADE = "Salcity";
+const ESTADO = "Bahia";
+const CEP = "40000-00";
+const OBJETIVO =
+  "Fornecer uma ferramenta automatizada gratuita para criacao de curriculos.";
+
+//==============SELETORES E CONSTANTES AUXILIARES==============
 const LINK = "https://www.todacarreira.com/gerador-de-curriculo/";
-// INSIRA SUAS CREDENCIAIS
-const USER = "";
-const PASS = "";
-const USER_FIELD = "#input-email";
-const PASS_FIELD = "#input-password";
-const LOGIN_BUTTON = ".btn-primary";
-const REGISTER_BUTTON_TEXT = "punch";
-const CONFIRM_BUTTON_TEXT = "confirm";
-const PUNCH_REGISTERED_CONFIRMATION = ".marked-btn";
+const SELETOR_NOME_COMPLETO = '[name="name"]';
+const SELETOR_EMAIL = '[name="email"]';
+//TODO: FOTO_PERFIL
+const SELETOR_NACIONALIDADE = '[name="nationality"]';
+const SELETOR_IDADE = '[name="age"]';
+const SELETOR_GENERO = '[name="gender"]';
+const SELETOR_ESTADO_CIVIL = '[name="marital"]';
+const SELETOR_TELEFONE = '[name="telephone"]';
+const SELETOR_CELULAR = '[name="mobile"]';
+const SELETOR_ENDERECO = '[name="address"]';
+const SELETOR_CIDADE = '[name="city"]';
+const SELETOR_ESTADO = '[name="state"]';
+const SELETOR_CEP = '[name="cep"]';
+const SELETOR_OBJETIVO = '[name="career-goal"]';
+const SELETOR_BOTAO_PAG_SEGUINTE = "#btnNext";
 const USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
-
 const TYPING_DELAY = 50;
-const MAXIMUM_TRIES = 3;
-
-//========================INICIA AQUI========================
+const MAX_CHARS = 5000;
+//======================INICIA AQUI==========================
 
 async function curriculumBot() {
-  var startDate = new Date().getDate();
-  var triesCounter = 0;
-
   try {
-    const [browser, context, page] = await initialConfigs();
+    const [contexto, navegador, pagina] = await configsIniciais();
 
-    const viewport = page.viewport();
-    const centerX = viewport.width / 2;
-    const centerY = viewport.height / 2;
+    await pagina.goto(LINK);
 
-    await page.goto(LINK);
+    await preencherPaginaDadosPessoais(pagina);
 
-    await wait(10000);
+    await avancarPagina(pagina);
 
-    await browser.close();
+    // await aguarde(10000);
 
-    // await page.waitForSelector(USER_FIELD);
-
-    // await page.type(USER_FIELD, USER, { delay: TYPING_DELAY });
-    // await page.type(PASS_FIELD, PASS, { delay: TYPING_DELAY });
-
-    // await page.click(LOGIN_BUTTON);
-
-    // await page.waitForNavigation({
-    //   waitUntil: "networkidle0",
-    // });
-
-    // var instantFullTimeStr, instantDay, instantDateObj, instantDate;
-    // var entranceTimerToUse = await pickTimer(ENTRANCE_TIMERS);
-    // var exitTimerToUse = await pickTimer(EXIT_TIMERS);
-    // await writeLog(
-    //   `HORARIOS A BATER NO DIA ${startDate}: ${entranceTimerToUse} / ${exitTimerToUse}`
-    // );
-
-    // //LOOP ETERNO COM A LOGICA
-    // while (true) {
-    //   await wait(2000);
-    //   instantDateObj = new Date();
-    //   instantDate = instantDateObj.getDate();
-
-    //   if (instantDate == startDate) {
-    //     instantDay = instantDateObj.getDay();
-
-    //     if (await isValidDay(instantDay)) {
-    //       instantFullTimeStr = await formatTimeString(instantDateObj);
-
-    //       if (
-    //         instantFullTimeStr == entranceTimerToUse ||
-    //         instantFullTimeStr == exitTimerToUse
-    //       ) {
-    //         await punchButton(page, REGISTER_BUTTON_TEXT);
-    //         await punchButton(page, CONFIRM_BUTTON_TEXT);
-    //         if (await validatePunch(page)) {
-    //           await writeLog(
-    //             `PONTO BATIDO COM SUCESSO! - ${instantFullTimeStr}`
-    //           );
-    //           triesCounter = 0;
-    //           await wait(60000);
-    //           await page.mouse.click(centerX, centerY);
-    //         } else {
-    //           if (triesCounter >= MAXIMUM_TRIES) {
-    //             await writeLog(`MAXIMO DE TENTATIVAS ATINGIDO!`);
-    //             await wait(60000);
-    //             process.exit();
-    //           } else {
-    //             await writeLog(
-    //               `ERRO AO BATER PONTO! TENTATIVA ${
-    //                 triesCounter + 1
-    //               } DE ${MAXIMUM_TRIES} - ${instantFullTimeStr}`
-    //             );
-    //             await page.mouse.click(centerX, centerY);
-    //             triesCounter++;
-    //           }
-    //         }
-    //       }
-    //     }
-    //   } else {
-    //     //LOGICA DE VIRADA DE DIA
-    //     startDate = instantDate;
-    //     entranceTimerToUse = await pickTimer(ENTRANCE_TIMERS);
-    //     exitTimerToUse = await pickTimer(EXIT_TIMERS);
-    //     await writeLog(
-    //       `HORARIOS A BATER NO DIA ${startDate}: ${entranceTimerToUse} / ${exitTimerToUse}`
-    //     );
-    //   }
-    // }
+    // await navegador.close();
   } catch (error) {
-    console.log(`${await getTimerNow()} - ${error}\n`);
+    console.log(`${await adquirirTempoAgora()} - ${error}\n`);
     process.exit();
   }
 }
 
-async function initialConfigs() {
-  const my_args = [
+async function configsIniciais() {
+  const meusArgs = [
     "--disable-extensions",
     "--disable-features=IsolateOrigins,site-per-process",
     "--disable-gpu",
@@ -130,48 +77,49 @@ async function initialConfigs() {
     "--flag-switches-begin --disable-site-isolation-trials --flag-switches-end",
   ];
 
-  const options = {
-    args: my_args,
+  const opcoes = {
+    args: meusArgs,
     headless: false,
     defaultViewport: null,
   };
 
-  const browser = await puppeteer.launch(options);
+  const navegador = await puppeteer.launch(opcoes);
 
-  const context = await browser.createIncognitoBrowserContext();
-  const page = await context.newPage();
+  const contexto = await navegador.createIncognitoBrowserContext();
+  const pagina = await contexto.newPage();
 
-  await page.setUserAgent(USER_AGENT);
+  await pagina.setUserAgent(USER_AGENT);
 
-  await context.overridePermissions(LINK, ["geolocation"]);
+  await contexto.overridePermissions(LINK, ["geolocation"]);
 
-  await page.setViewport({ width: 1280, height: 800 });
+  await pagina.setViewport({ width: 1280, height: 800 });
 
-  page.setDefaultTimeout(61000);
+  pagina.setDefaultTimeout(61000);
 
-  return [browser, context, page];
+  return [contexto, navegador, pagina];
 }
 
-async function formatTimeString(instantDateObj) {
-  try {
-    let instantHoursStr = instantDateObj.getHours().toString();
-
-    if (instantDateObj.getHours() < 10) {
-      instantHoursStr = `0${instantHoursStr}`;
-    }
-
-    let instantMinutesStr = instantDateObj.getMinutes().toString();
-    if (instantDateObj.getMinutes() < 10) {
-      instantMinutesStr = `0${instantMinutesStr}`;
-    }
-
-    return `${instantHoursStr}:${instantMinutesStr}`;
-  } catch (error) {
-    console.log(`${await getTimerNow()} - ${error}\n`);
-  }
+async function preencherPaginaDadosPessoais(pagina) {
+  await pagina.waitForSelector(SELETOR_NOME_COMPLETO);
+  await apagarCampo(pagina, SELETOR_NACIONALIDADE);
+  await digitarCampo(pagina, NOME_COMPLETO, SELETOR_NOME_COMPLETO);
+  await digitarCampo(pagina, EMAIL, SELETOR_EMAIL);
+  await digitarCampo(pagina, NACIONALIDADE, SELETOR_NACIONALIDADE);
+  await digitarCampo(pagina, IDADE, SELETOR_IDADE);
+  // await digitarInfo(pagina, GENERO, SELETOR_GENERO);
+  // await digitarInfo(pagina, ESTADO_CIVIL, SELETOR_ESTADO_CIVIL);
+  await digitarCampo(pagina, TELEFONE, SELETOR_TELEFONE);
+  await digitarCampo(pagina, CELULAR, SELETOR_CELULAR);
+  await digitarCampo(pagina, ENDERECO, SELETOR_ENDERECO);
+  await digitarCampo(pagina, CIDADE, SELETOR_CIDADE);
+  await digitarCampo(pagina, ESTADO, SELETOR_ESTADO);
+  await digitarCampo(pagina, CEP, SELETOR_CEP);
+  await digitarCampo(pagina, OBJETIVO, SELETOR_OBJETIVO);
 }
 
-async function getFormattedDate(date) {
+//====================FUNCOES AUXILIARES=====================
+
+async function adquirirDataFormatada(date) {
   const options = {
     timeZone: "America/Sao_Paulo", // Configura o fuso horário para Brasília (BRT)
     hour12: false, // Usa formato de 24 horas
@@ -187,65 +135,30 @@ async function getFormattedDate(date) {
   return date.toLocaleString("pt-BR", options);
 }
 
-async function getTimerNow() {
+async function adquirirTempoAgora() {
   const now = new Date();
-  return await getFormattedDate(now);
+  return await adquirirDataFormatada(now);
 }
 
-async function isValidDay(day) {
-  return INT_VALID_DAYS.includes(day);
-}
-
-async function pickTimer(timersList) {
-  const randomIndex = Math.floor(Math.random() * timersList.length);
-  return timersList[randomIndex];
-}
-
-async function punchButton(page, buttonTextToClick) {
-  try {
-    const buttons = await page.$$("button");
-
-    for (const button of buttons) {
-      const buttonText = await page.evaluate(
-        (element) => element.textContent,
-        button
-      );
-
-      if (
-        buttonText
-          .trim()
-          .toLowerCase()
-          .includes(buttonTextToClick.toLowerCase())
-      ) {
-        await button.evaluate((h) => {
-          h.click();
-        });
-        await wait(2000);
-        break;
-      }
-    }
-  } catch (error) {
-    console.log(`${await getTimerNow()} - ${error}\n`);
+async function apagarCampo(pagina, seletor) {
+  await pagina.click(seletor);
+  for (let index = 0; index < MAX_CHARS; index++) {
+    await pagina.keyboard.press("Backspace");
   }
 }
 
-async function validatePunch(page) {
-  await wait(10000);
-
-  return page.evaluate((selector) => {
-    const markedBtnElements = document.querySelectorAll(selector);
-    return markedBtnElements.length > 0;
-  }, PUNCH_REGISTERED_CONFIRMATION);
-}
-
-async function wait(time) {
+async function aguardar(time) {
   return new Promise(function (resolve) {
     setTimeout(resolve, time);
   });
 }
 
-async function writeLog(receivedString) {
-  let string = `${await getTimerNow()} - ${receivedString}\n`;
+async function digitarCampo(pagina, info, seletor) {
+  await pagina.type(seletor, info, TYPING_DELAY);
+}
+
+async function escreverLog(receivedString) {
+  let string = `${await adquirirTempoAgora()} - ${receivedString}\n`;
   await promises.writeFile(
     "./registries.log",
     string,
@@ -254,4 +167,9 @@ async function writeLog(receivedString) {
   );
 }
 
+async function avancarPagina(pagina) {
+  await pagina.click(SELETOR_BOTAO_PAG_SEGUINTE);
+}
+
+//====================FUNCAO PRINCIPAL======================
 await curriculumBot();
