@@ -140,6 +140,12 @@ async function adquirirTempoAgora() {
   return await adquirirDataFormatada(now);
 }
 
+async function aguardar(time) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, time);
+  });
+}
+
 async function apagarCampo(pagina, seletor) {
   await pagina.click(seletor);
   for (let index = 0; index < MAX_CHARS; index++) {
@@ -147,10 +153,8 @@ async function apagarCampo(pagina, seletor) {
   }
 }
 
-async function aguardar(time) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, time);
-  });
+async function avancarPagina(pagina) {
+  await pagina.click(SELETOR_BOTAO_PAG_SEGUINTE);
 }
 
 async function digitarCampo(pagina, info, seletor) {
@@ -165,10 +169,6 @@ async function escreverLog(receivedString) {
     { flag: "a+" },
     (err) => {}
   );
-}
-
-async function avancarPagina(pagina) {
-  await pagina.click(SELETOR_BOTAO_PAG_SEGUINTE);
 }
 
 //====================FUNCAO PRINCIPAL======================
