@@ -2,54 +2,54 @@ import path from "path";
 import puppeteer from "puppeteer";
 
 // INSIRA SUAS INFORMACOES A SEREM USADAS EDITANDO AS CONSTANTES AQUI ABAIXO
-const ESTILO_CURRICULO = 1;
-const NOME_COMPLETO = "Fulano Ciclano da Silva";
-const EMAIL = "fulano@gmail.com";
+const ESTILO_CURRICULO = 2;
+const NOME_COMPLETO = "Veruschk Pereira dos Santos";
+const EMAIL = "veruschk_pereira@hotmail.com";
 const NACIONALIDADE = "Brasileira";
-const IDADE = "33";
-const GENERO = "Masculino";
-const ESTADO_CIVIL = "Solteiro";
-const TELEFONE = "(71)1234-5678";
-const CELULAR = "(71)12345-6789";
-const ENDERECO = "Rua das automações, 25";
-const CIDADE = "Salcity";
+const IDADE = "50";
+const GENERO = "Feminino";
+const ESTADO_CIVIL = "Solteira";
+const TELEFONE = "";
+const CELULAR = "(71)99167-4930";
+const ENDERECO = "Rua Medeiros Neto, 23 - Edf. Rosalina, Ap. 102";
+const CIDADE = "Salvador";
 const ESTADO = "Bahia";
-const CEP = "41234-567";
+const CEP = "40243-047";
 const OBJETIVO =
-  "Fornecer uma ferramenta automatizada gratuita para a criação de currículos.";
+  "Profissional qualificada com formação em Atendimento de Farmácia, buscando uma posição como Atendente de Farmácia. Dotada de sólidas habilidades de comunicação, atendimento ao cliente e organização, estou pronta para contribuir para a eficiência e qualidade do serviço na farmácia. Comprometida com o bem-estar dos clientes, busco uma oportunidade para aplicar meu conhecimento técnico e promover uma experiência positiva para todos os clientes.";
 const LISTA_CURSOS = [
-  ["Curso 1", "UNEB", "2022"],
-  ["Curso 2", "UFBA", "2017"],
-  ["Curso 3", "IFBA", "2000"],
+  ["Atendente de Farmácia", "Sete Cursos Centro Tecnológico", "2022"],
+  ["Cuidadora de Idosos", "Cuidabem Cuidadores de Pessoas", "2022"],
+  ["Telefonista, Recepcionista, Telemarketing", "Microlins", "2006"],
+  ["Técnica Agrícola", "Escola Agrotécnica de Ribeira do Pombal", "1990"],
 ];
-const QUALIFICACOES_CURSOS_COMPLEMENTARES =
-  "Curso 1 - Instituição 1 - 2002;\nCurso 2 - Instituição 2 - 2000;\nCurso 3 - Instituição 3 - 1900;";
+const QUALIFICACOES_CURSOS_COMPLEMENTARES = "";
 const LISTA_EXPERIENCIA = [
   [
-    "Empresa 1",
-    "2017",
-    "atualmente",
-    "Cargo 1",
-    "Atuacoes no ramo de automacao;\nBoas acoes para o mundo.",
-  ],
-  [
-    "Empresa 2",
+    "Governo do Estado da Bahia",
     "2010",
-    "2015",
-    "Cargo 2",
-    "Atuacoes no ramo de automacao;\nBoas acoes para o mundo.",
+    "2021",
+    "Secretária Assistente Administrativo",
+    "Durante o período trabalhado no Hospital de Custódia e Tratamento (SEAP/BA), foram realizadas atuações em dois setores:\n\nSetor de almoxarifado:\nRecebimento e organização do material direcionado ao almoxarifado;\nRegistro de entrada e saída de itens utilizando Microsoft Office Excel.\n\nSetor de farmácia:\nRecebimento e organização do material direcionado à farmácia;\nSeparação de medicamentos com dosagens diárias para os pacientes do hospital;\nRegistro de entrada e saída de itens.",
   ],
-  [
-    "Empresa 3",
-    "2005",
-    "2007",
-    "Cargo 3",
-    "Atuacoes no ramo de automacao;\nBoas acoes para o mundo.",
-  ],
+  // [
+  //   "Empresa 2",
+  //   "2010",
+  //   "2015",
+  //   "Cargo 2",
+  //   "Atuacoes no ramo de automacao;\nBoas acoes para o mundo.",
+  // ],
+  // [
+  //   "Empresa 3",
+  //   "2005",
+  //   "2007",
+  //   "Cargo 3",
+  //   "Atuacoes no ramo de automacao;\nBoas acoes para o mundo.",
+  // ],
 ];
-const ATIVIDADES_COMPLEMENTARES = "Projetos sociais;\nWorkshops;\nCongressos.";
+const ATIVIDADES_COMPLEMENTARES = "";
 const INFORMACOES_ADICIONAIS =
-  "Informações a adicionar;\nLinha 2 de informações;\nLinha 3 de informações.";
+  "Organização e planejamento nas atividades do dia a dia;\nColaboração com a equipe no alcance das metas;\nAgilidade e qualidade na entrega das tarefas;\nBoa escrita e comunicação verbal;\nFacilidade de aprendizado de novas formas de trabalho.";
 
 //======================INICIA AQUI==========================
 
