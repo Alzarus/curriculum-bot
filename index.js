@@ -2,7 +2,7 @@ import path from "path";
 import puppeteer from "puppeteer";
 
 // INSIRA SUAS INFORMACOES A SEREM USADAS EDITANDO AS CONSTANTES AQUI ABAIXO
-const ESTILO_CURRICULO = 2;
+const ESTILO_CURRICULO = 3;
 const NOME_COMPLETO = "Veruschk Pereira dos Santos";
 const EMAIL = "veruschk_pereira@hotmail.com";
 const NACIONALIDADE = "Brasileira";
@@ -16,7 +16,7 @@ const CIDADE = "Salvador";
 const ESTADO = "Bahia";
 const CEP = "40243-047";
 const OBJETIVO =
-  "Profissional qualificada com formação em Atendimento de Farmácia, buscando uma posição como Atendente de Farmácia. Dotada de sólidas habilidades de comunicação, atendimento ao cliente e organização, estou pronta para contribuir para a eficiência e qualidade do serviço na farmácia. Comprometida com o bem-estar dos clientes, busco uma oportunidade para aplicar meu conhecimento técnico e promover uma experiência positiva para todos os clientes.";
+  "Profissional dedicada e com formação em Atendimento de Farmácia, busco a posição de Auxiliar Administrativo na Santa Casa da Bahia. Com sólida experiência em organização de documentação, controle de estoque e atendimento ao público em ambiente hospitalar, estou preparada para contribuir com a eficiência dos processos administrativos. Comprometida com a excelência no atendimento e com um forte senso de responsabilidade e ética, meu objetivo é apoiar a missão da instituição de cuidar de pessoas e estimular a dignidade através de práticas administrativas eficazes.";
 const LISTA_CURSOS = [
   ["Atendente de Farmácia", "Sete Cursos Centro Tecnológico", "2022"],
   ["Cuidadora de Idosos", "Cuidabem Cuidadores de Pessoas", "2022"],
@@ -49,7 +49,7 @@ const LISTA_EXPERIENCIA = [
 ];
 const ATIVIDADES_COMPLEMENTARES = "";
 const INFORMACOES_ADICIONAIS =
-  "Organização e planejamento nas atividades do dia a dia;\nColaboração com a equipe no alcance das metas;\nAgilidade e qualidade na entrega das tarefas;\nBoa escrita e comunicação verbal;\nFacilidade de aprendizado de novas formas de trabalho.";
+  "Experiência comprovada em atendimento ao público e comunicação eficaz, chave para a excelência no papel de Auxiliar Administrativo;\nHabilidade em organização e planejamento, essencial para a gestão eficiente de documentação e controle de materiais;\nCapacidade de trabalhar em equipe e colaborar para a implementação de melhorias nos processos administrativos;\nConhecimento básico em informática, com proficiência em Microsoft Office, alinhado com os requisitos da vaga;\nDisponibilidade para atuar em regime de escala, conforme necessidade da instituição.";
 
 //======================INICIA AQUI==========================
 
@@ -270,6 +270,10 @@ async function baixarCurriculo(pagina) {
   await pagina.click(SELETORES_ESTILO_CURRICULO[ESTILO_CURRICULO - 1]);
 
   await aguardar(2000);
+
+  await pagina.click(SELETORES_ESTILO_CURRICULO[ESTILO_CURRICULO - 1]);
+
+  await aguardar(4000);
 
   await pagina.click(SELETOR_BOTAO_BAIXAR_CV);
 
